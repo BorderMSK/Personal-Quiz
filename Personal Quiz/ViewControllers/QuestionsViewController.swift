@@ -23,6 +23,18 @@ class QuestionsViewController: UIViewController {
     @IBOutlet weak var rangedSlider: UISlider!
     @IBOutlet var rangedLabels: [UILabel]!
     
+    @IBAction func answerButton(_ sender: UIButton) {
+        let currentAnswers = questionsAboutAnimals[questionIndex].answers
+        guard let cuttentIndex = singleButtons.firstIndex(of: sender) else { return }
+        let currentAnswer = currentAnswers[cuttentIndex]
+        answersChosen.append(currentAnswer)
+        
+        nextQuestion()
+    }
+    
+    
+    private let questionsAboutAnimals = Question.getQuestions()
+    
     var questions: [Question] = []
     private var questionIndex = 0 // индекс активного вопроса
     
@@ -38,7 +50,6 @@ class QuestionsViewController: UIViewController {
 extension QuestionsViewController {
     @IBAction func singleAnswerButtonPressed(_ sender: UIButton) {
         let currentAnswers = questions[questionIndex].answers
-        
         guard let currentIndex = singleButtons.firstIndex(of: sender) else {
             return
         }
